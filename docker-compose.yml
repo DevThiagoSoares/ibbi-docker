@@ -4,7 +4,7 @@ services:
   ibbi-ui:
     container_name: ibbi-ui
     build:
-      context: .
+      context: https://github.com/DevThiagoSoares/ibbi-ui.git#master
       args:
         PORT: ${FRONTEND_PORT}
     restart: always
@@ -17,12 +17,8 @@ services:
   ibbi-api:
     container_name: ibbi-api
     build:
-      context: .
-      args:
-        - PORT=${CORE_PORT}
+      context: https://github.com/DevThiagoSoares/ibbi-api.git#master
     restart: always
-    volumes:
-      - ./src:/code/src
     env_file: .env
     ports:
       - ${CORE_PORT}:${CORE_PORT}
@@ -39,7 +35,7 @@ services:
       - /var/lib/pgdata:/var/lib/postgresql/data
     env_file: .env
     ports:
-      - ${POSTGRES_EXTERNAL_PORT}:${POSTGRES_PORT}
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
     networks:
       - api-network
 
